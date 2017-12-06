@@ -61,12 +61,17 @@ export const QueryDocumentKeys = {
     'directives',
   ],
   InterfaceTypeDefinition: ['description', 'name', 'directives', 'fields'],
-  UnionTypeDefinition: ['description', 'name', 'directives', 'types'],
+  UnionTypeDefinition: ['description', 'name', 'directives', 'members'],
   EnumTypeDefinition: ['description', 'name', 'directives', 'values'],
   EnumValueDefinition: ['description', 'name', 'directives'],
   InputObjectTypeDefinition: ['description', 'name', 'directives', 'fields'],
 
+  ScalarTypeExtension: ['name', 'directives'],
   ObjectTypeExtension: ['name', 'interfaces', 'directives', 'fields'],
+  InterfaceTypeExtension: ['name', 'directives', 'fields'],
+  UnionTypeExtension: ['name', 'directives', 'members'],
+  EnumTypeExtension: ['name', 'directives', 'values'],
+  InputObjectTypeExtension: ['name', 'directives', 'fields'],
 
   DirectiveDefinition: ['description', 'name', 'arguments', 'locations'],
 };

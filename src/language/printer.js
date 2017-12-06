@@ -172,12 +172,17 @@ const printDocASTReducer = {
       '\n',
     ),
 
-  UnionTypeDefinition: ({ description, name, directives, types }) =>
+  UnionTypeDefinition: ({ description, name, directives, members }) =>
     join(
       [
         description,
         join(
-          ['union', name, join(directives, ' '), '= ' + join(types, ' | ')],
+          [
+            'union',
+            name,
+            join(directives, ' '),
+            members && members.length !== 0 ? '= ' + join(members, ' | ') : '',
+          ],
           ' ',
         ),
       ],
@@ -205,6 +210,9 @@ const printDocASTReducer = {
       '\n',
     ),
 
+  ScalarTypeExtension: ({ name, directives }) =>
+    join(['extend scalar', name, join(directives, ' ')], ' '),
+
   ObjectTypeExtension: ({ name, interfaces, directives, fields }) =>
     join(
       [
@@ -216,6 +224,26 @@ const printDocASTReducer = {
       ],
       ' ',
     ),
+
+  InterfaceTypeExtension: ({ name, directives, fields }) =>
+    join(['extend interface', name, join(directives, ' '), block(fields)], ' '),
+
+  UnionTypeExtension: ({ name, directives, members }) =>
+    join(
+      [
+        'extend union',
+        name,
+        join(directives, ' '),
+        members && members.length !== 0 ? '= ' + join(members, ' | ') : '',
+      ],
+      ' ',
+    ),
+
+  EnumTypeExtension: ({ name, directives, values }) =>
+    join(['extend enum', name, join(directives, ' '), block(values)], ' '),
+
+  InputObjectTypeExtension: ({ name, directives, fields }) =>
+    join(['extend input', name, join(directives, ' '), block(fields)], ' '),
 
   DirectiveDefinition: ({ description, name, arguments: args, locations }) =>
     join(
